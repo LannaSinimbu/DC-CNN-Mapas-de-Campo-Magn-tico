@@ -1,0 +1,31 @@
+# Configuração do pipeline DC-CNN.
+# Os caminhos em `map_files` são relativos à raiz do projeto.
+# Coloque seus mapas .txt na pasta data/ (veja data/README.md).
+
+data:
+  # Arquivos dos mapas medidos, na mesma ordem de z_um.
+  map_files:
+    - data/MAPx260620241658.txt
+    - data/MAPx270620240930.txt
+    - data/MAPx020720241338.txt
+    - data/MAPx030720241005.txt
+    - data/MAPx040720240950.txt
+  # Altura sensor-amostra de cada mapa, em micrômetros.
+  z_um: [200, 400, 670, 720, 900]
+
+physics:
+  dx: 40.0e-6          # passo espacial em x (m)
+  dy: 40.0e-6          # passo espacial em y (m)
+  alpha_dc: 1.0e-4     # regularização da continuação para baixo
+  sigma_psf: 80.0e-6   # largura efetiva do footprint do sensor (m)
+  beta: 1.0e-2         # regularização da deconvolução
+
+train:
+  patch_size: 48       # tamanho do patch (afeta a resolução das fontes)
+  stride: 24           # passo entre patches (sobreposição)
+  batch_size: 32
+  lr: 1.0e-4
+  n_epochs: 600
+  seed: 0
+  log_every: 10
+  model_path: outputs/modelo_dc_cnn.pth
